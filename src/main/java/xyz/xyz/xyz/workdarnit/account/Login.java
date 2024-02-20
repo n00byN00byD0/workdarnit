@@ -17,8 +17,8 @@ public interface Login {
      * Originally I thought I'd do something smart with longs -
      * - the following* code may get snipped?!
      */
-    long BAD_LONG = -1;
-    long BAD_LONG_SUBSTITUTE = 0xB00B135L;
+    //long BAD_LONG = -1;
+    //long BAD_LONG_SUBSTITUTE = 0xB00B135L;
     // *see above
 
     default byte[] secureHash(byte[] bytes) {
@@ -39,9 +39,9 @@ public interface Login {
                     ((long) hb[at*8 + 7]) << 56;
             out ^= chunk;
         }
-        if (out == BAD_LONG) {
-            out = BAD_LONG_SUBSTITUTE;
-        }
+        //if (out == BAD_LONG) {
+          //  out = BAD_LONG_SUBSTITUTE;
+        //}
         return out;
     }
 
@@ -49,7 +49,9 @@ public interface Login {
     boolean queryPassword(long nameRef, long pwdRef);
 
     // Separating testing from linking access to the rest of the program 🤷
-    Access login(long nameRef, long passRef);
+    default Access login(long nameRef, long passRef) {
+        return () -> {};
+    }
 
     default Access login(byte[] name, byte[] password) throws LoginException {
         final long nameRef = hashReduce(secureHash(name)),
