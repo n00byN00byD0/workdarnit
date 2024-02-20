@@ -1,6 +1,7 @@
 package xyz.xyz.xyz.workdarnit;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -43,6 +44,7 @@ public class ClientFxApp extends Application {
         stage.setTitle("Hello and Welcome!");
         stage.setScene(scene);
         stage.show();
+        Platform.runLater(doneButton::requestFocus);
     }
 
     public static void main(String[] args) {
